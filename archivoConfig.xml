@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><rutas>
+<directorio nombre="conf1">
+<domain>/home/sigesa/NetBeansProjects/sigesa-aggregator/sigesa-jpa/src/main/java/cr/ac/una/cgi/sigesa/pbs/abs/domain/</domain>
+<repository>/home/sigesa/NetBeansProjects/sigesa-aggregator/sigesa-jpa/src/main/java/cr/ac/una/cgi/sigesa/pbs/abs/repository/</repository>
+<service>/home/sigesa/NetBeansProjects/sigesa-pbs-abs/sigesa-pbs-abs-service/src/main/java/cr/ac/una/cgi/sigesa/pbs/abs/service/</service>
+<bean>/home/sigesa/NetBeansProjects/sigesa-pbs-abs/sigesa-pbs-abs-web/src/main/java/cr/ac/una/cgi/sigesa/pbs/abs/view/model/</bean>
+<LOVBean>/home/sigesa/NetBeansProjects/sigesa-pbs-abs/sigesa-pbs-abs-web/src/main/java/cr/ac/una/cgi/sigesa/pbs/abs/view/LOV/</LOVBean>
+<editForm>/home/sigesa/NetBeansProjects/sigesa-pbs-abs/sigesa-pbs-abs-web/src/main/resources/META-INF/resources/pages/</editForm>
+<listForm>/home/sigesa/NetBeansProjects/sigesa-pbs-abs/sigesa-pbs-abs-web/src/main/resources/META-INF/resources/pages/</listForm>
+<SQL>/home/sigesa/Desarrollo/JGeneArchivos/Regionalizacion/</SQL>
+</directorio>
+</rutas>

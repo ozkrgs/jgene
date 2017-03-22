@@ -1,0 +1,7 @@
+[Desktop Entry]
+Comment=
+Terminal=false
+Name=JGene
+Exec=/home/sigesa/Desarrollo/JGene/dist/JGene.jar
+Type=Application
+Icon=/home/sigesa/Escritorio/JGene/23365_Generate-tables256.png
