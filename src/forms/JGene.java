@@ -33,7 +33,7 @@ import utils.Utilitarios;
 
 /**
  *
- * @author sigesa
+ * @author Oscar Gomez da Silva
  */
 public class JGene extends javax.swing.JFrame {
 
