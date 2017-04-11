@@ -170,6 +170,7 @@ public class JGene extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jListConexiones);
 
         btnNuevaConexion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ui-document.png"))); // NOI18N
+        btnNuevaConexion.setToolTipText("Nueva");
         btnNuevaConexion.setMaximumSize(new java.awt.Dimension(61, 29));
         btnNuevaConexion.setMinimumSize(new java.awt.Dimension(61, 29));
         btnNuevaConexion.setName("btnNuevaConexion"); // NOI18N
@@ -181,6 +182,7 @@ public class JGene extends javax.swing.JFrame {
         });
 
         btnGuardarConexion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ui-save.png"))); // NOI18N
+        btnGuardarConexion.setToolTipText("Guardar");
         btnGuardarConexion.setPreferredSize(new java.awt.Dimension(25, 25));
         btnGuardarConexion.setRolloverEnabled(false);
         btnGuardarConexion.addActionListener(new java.awt.event.ActionListener() {
@@ -190,6 +192,7 @@ public class JGene extends javax.swing.JFrame {
         });
 
         btnEliminarConex.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ui-trash.png"))); // NOI18N
+        btnEliminarConex.setToolTipText("Eliminar");
         btnEliminarConex.setName("btnEliminarConexion"); // NOI18N
         btnEliminarConex.setNextFocusableComponent(AtributoPanel);
         btnEliminarConex.addActionListener(new java.awt.event.ActionListener() {
@@ -438,6 +441,7 @@ public class JGene extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jListDirectorios);
 
         btnPaqueteDirectorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ui-document.png"))); // NOI18N
+        btnPaqueteDirectorio.setToolTipText("Nuevo");
         btnPaqueteDirectorio.setMaximumSize(new java.awt.Dimension(61, 29));
         btnPaqueteDirectorio.setMinimumSize(new java.awt.Dimension(61, 29));
         btnPaqueteDirectorio.setName("btnNuevaConexion"); // NOI18N
@@ -448,6 +452,7 @@ public class JGene extends javax.swing.JFrame {
         });
 
         btnGuardarConfArch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ui-save.png"))); // NOI18N
+        btnGuardarConfArch.setToolTipText("Guardar");
         btnGuardarConfArch.setPreferredSize(new java.awt.Dimension(25, 25));
         btnGuardarConfArch.setRolloverEnabled(false);
         btnGuardarConfArch.addActionListener(new java.awt.event.ActionListener() {
@@ -457,6 +462,7 @@ public class JGene extends javax.swing.JFrame {
         });
 
         btnEliminarPaqueteDir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ui-trash.png"))); // NOI18N
+        btnEliminarPaqueteDir.setToolTipText("Eliminar");
         btnEliminarPaqueteDir.setName("btnEliminarConexion"); // NOI18N
         btnEliminarPaqueteDir.setNextFocusableComponent(AtributoPanel);
         btnEliminarPaqueteDir.addActionListener(new java.awt.event.ActionListener() {
