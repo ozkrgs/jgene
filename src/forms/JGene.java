@@ -8,6 +8,8 @@ package forms;
 import clases.Campo;
 import clases.CamposTableModel;
 import clases.Conexion;
+import clases.Directorio;
+import clases.PaqueteDirectorio;
 import connection.Connector;
 import exceptions.ExceptionConnection;
 import java.io.File;
@@ -29,6 +31,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import org.xml.sax.SAXException;
 import utils.ConfConexion;
+import utils.ConfDirectorio;
 import utils.Utilitarios;
 
 /**
@@ -38,7 +41,9 @@ import utils.Utilitarios;
 public class JGene extends javax.swing.JFrame {
 
     private ArrayList<Conexion> listaConex;
+    ArrayList<PaqueteDirectorio> listaPaqueteDirectorios;
     private Conexion conexionActiva;
+    private PaqueteDirectorio paqueteDirectorioActivo;
     private String directorio;
     ArrayList<Campo> listaCampos = new ArrayList<Campo>();
     private String nombreTabla;
@@ -49,13 +54,14 @@ public class JGene extends javax.swing.JFrame {
         initComponents();
 //        txtEntidad.setEnabled(false);
 //        txtTitulo.setEnabled(false);
-        txtPaquete.setEnabled(false);
+       // txtPaquete.setEnabled(false);
         // btnGenerar.setEnabled(false);
         btnNuevoCampo.setEnabled(false);
 
         Conexion conexionActiva = new Conexion();
         try {
             buscaConexiones();
+            buscaDirectorios();
         } catch (ParserConfigurationException ex) {
             Logger.getLogger(JGene.class.getName()).log(Level.SEVERE, null, ex);
         } catch (TransformerException ex) {
@@ -80,7 +86,7 @@ public class JGene extends javax.swing.JFrame {
         pestanasTabPanel = new javax.swing.JTabbedPane();
         conexionPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jlListaConexiones = new javax.swing.JList();
+        jListConexiones = new javax.swing.JList();
         btnNuevaConexion = new javax.swing.JButton();
         btnGuardarConexion = new javax.swing.JButton();
         btnEliminarConex = new javax.swing.JButton();
@@ -126,10 +132,10 @@ public class JGene extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jlListaConexiones1 = new javax.swing.JList();
-        btnNuevaConexion1 = new javax.swing.JButton();
+        jListDirectorios = new javax.swing.JList();
+        btnPaqueteDirectorio = new javax.swing.JButton();
         btnGuardarConfArch = new javax.swing.JButton();
-        btnEliminarConex1 = new javax.swing.JButton();
+        btnEliminarPaqueteDir = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         txtPaquete = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
@@ -155,18 +161,19 @@ public class JGene extends javax.swing.JFrame {
 
         pestanasTabPanel.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
-        jlListaConexiones.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jlListaConexiones.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+        jListConexiones.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jListConexiones.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                jlListaConexionesValueChanged(evt);
+                jListConexionesValueChanged(evt);
             }
         });
-        jScrollPane1.setViewportView(jlListaConexiones);
+        jScrollPane1.setViewportView(jListConexiones);
 
         btnNuevaConexion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ui-document.png"))); // NOI18N
         btnNuevaConexion.setMaximumSize(new java.awt.Dimension(61, 29));
         btnNuevaConexion.setMinimumSize(new java.awt.Dimension(61, 29));
         btnNuevaConexion.setName("btnNuevaConexion"); // NOI18N
+        btnNuevaConexion.setPreferredSize(new java.awt.Dimension(35, 23));
         btnNuevaConexion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNuevaConexionnuevaConexion(evt);
@@ -226,7 +233,7 @@ public class JGene extends javax.swing.JFrame {
                 .add(34, 34, 34)
                 .add(conexionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, txtUsuario)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, txtURLConexion, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, txtURLConexion, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, txtNomConexion, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, txtContraseña, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 377, Short.MAX_VALUE))
                 .add(158, 158, 158))
@@ -239,10 +246,10 @@ public class JGene extends javax.swing.JFrame {
                     .add(conexionPanelLayout.createSequentialGroup()
                         .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 122, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(conexionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, btnGuardarConexion, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, btnEliminarConex, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .add(btnNuevaConexion, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .add(conexionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                            .add(btnEliminarConex, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 35, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(btnNuevaConexion, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(btnGuardarConexion, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .add(conexionPanelLayout.createSequentialGroup()
                         .add(conexionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                             .add(jLabel8)
@@ -259,7 +266,7 @@ public class JGene extends javax.swing.JFrame {
                         .add(conexionPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                             .add(txtContraseña, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(jLabel7))))
-                .addContainerGap(159, Short.MAX_VALUE))
+                .addContainerGap(163, Short.MAX_VALUE))
         );
 
         pestanasTabPanel.addTab("Conexión", conexionPanel);
@@ -356,7 +363,6 @@ public class JGene extends javax.swing.JFrame {
         TipoBeanbuttonGroup.add(rbAser);
         rbAser.setText("ASER");
 
-        txtDirDomain.setText("/home/sigesa/NetBeansProjects/sigesa-aggregator/sigesa-jpa/src/main/java/cr/ac/una/cgi/sigesa/pbs/abs/domain/");
         txtDirDomain.setInheritsPopupMenu(true);
 
         btnFChDomain.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ui-folder.png"))); // NOI18N
@@ -366,7 +372,6 @@ public class JGene extends javax.swing.JFrame {
             }
         });
 
-        txtDirRepository.setText("/home/sigesa/NetBeansProjects/sigesa-aggregator/sigesa-jpa/src/main/java/cr/ac/una/cgi/sigesa/pbs/abs/repository/");
         txtDirRepository.setToolTipText("");
 
         btnFChRepository.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ui-folder.png"))); // NOI18N
@@ -376,16 +381,12 @@ public class JGene extends javax.swing.JFrame {
             }
         });
 
-        txtDirService.setText("/home/sigesa/NetBeansProjects/sigesa-pbs-abs/sigesa-pbs-abs-service/src/main/java/cr/ac/una/cgi/sigesa/pbs/abs/service/");
-
         btnFChService.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ui-folder.png"))); // NOI18N
         btnFChService.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFChServiceActionPerformed(evt);
             }
         });
-
-        txtDirBean.setText("/home/sigesa/NetBeansProjects/sigesa-pbs-abs/sigesa-pbs-abs-web/src/main/java/cr/ac/una/cgi/sigesa/pbs/abs/view/model/");
 
         btnFChBean.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ui-folder.png"))); // NOI18N
         btnFChBean.addActionListener(new java.awt.event.ActionListener() {
@@ -394,16 +395,12 @@ public class JGene extends javax.swing.JFrame {
             }
         });
 
-        txtDirLOVBean.setText("/home/sigesa/NetBeansProjects/sigesa-pbs-abs/sigesa-pbs-abs-web/src/main/java/cr/ac/una/cgi/sigesa/pbs/abs/view/LOV/");
-
         btnFChLOVBeaN.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ui-folder.png"))); // NOI18N
         btnFChLOVBeaN.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFChLOVBeaNActionPerformed(evt);
             }
         });
-
-        txtDirEditForm.setText("/home/sigesa/NetBeansProjects/sigesa-pbs-abs/sigesa-pbs-abs-web/src/main/resources/META-INF/resources/pages/");
 
         btnFChEditForm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ui-folder.png"))); // NOI18N
         btnFChEditForm.addActionListener(new java.awt.event.ActionListener() {
@@ -412,16 +409,12 @@ public class JGene extends javax.swing.JFrame {
             }
         });
 
-        txtDirListForm.setText("/home/sigesa/NetBeansProjects/sigesa-pbs-abs/sigesa-pbs-abs-web/src/main/resources/META-INF/resources/pages/");
-
         btnFChListForm.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ui-folder.png"))); // NOI18N
         btnFChListForm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnFChListFormActionPerformed(evt);
             }
         });
-
-        txtDirScript.setText("/home/sigesa/Desarrollo/JGeneArchivos/Regionalizacion/");
 
         btnFChScript.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ui-folder.png"))); // NOI18N
         btnFChScript.addActionListener(new java.awt.event.ActionListener() {
@@ -435,21 +428,22 @@ public class JGene extends javax.swing.JFrame {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
         jPanel1.setToolTipText("");
 
-        jlListaConexiones1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jlListaConexiones1.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+        jListDirectorios.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jListDirectorios.setName("jListDirectorio"); // NOI18N
+        jListDirectorios.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                jlListaConexiones1ValueChanged(evt);
+                jListDirectoriosValueChanged(evt);
             }
         });
-        jScrollPane2.setViewportView(jlListaConexiones1);
+        jScrollPane2.setViewportView(jListDirectorios);
 
-        btnNuevaConexion1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ui-document.png"))); // NOI18N
-        btnNuevaConexion1.setMaximumSize(new java.awt.Dimension(61, 29));
-        btnNuevaConexion1.setMinimumSize(new java.awt.Dimension(61, 29));
-        btnNuevaConexion1.setName("btnNuevaConexion"); // NOI18N
-        btnNuevaConexion1.addActionListener(new java.awt.event.ActionListener() {
+        btnPaqueteDirectorio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ui-document.png"))); // NOI18N
+        btnPaqueteDirectorio.setMaximumSize(new java.awt.Dimension(61, 29));
+        btnPaqueteDirectorio.setMinimumSize(new java.awt.Dimension(61, 29));
+        btnPaqueteDirectorio.setName("btnNuevaConexion"); // NOI18N
+        btnPaqueteDirectorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevaConexion1nuevaConexion(evt);
+                btnPaqueteDirectorioActionPerformed(evt);
             }
         });
 
@@ -462,12 +456,12 @@ public class JGene extends javax.swing.JFrame {
             }
         });
 
-        btnEliminarConex1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ui-trash.png"))); // NOI18N
-        btnEliminarConex1.setName("btnEliminarConexion"); // NOI18N
-        btnEliminarConex1.setNextFocusableComponent(AtributoPanel);
-        btnEliminarConex1.addActionListener(new java.awt.event.ActionListener() {
+        btnEliminarPaqueteDir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ui-trash.png"))); // NOI18N
+        btnEliminarPaqueteDir.setName("btnEliminarConexion"); // NOI18N
+        btnEliminarPaqueteDir.setNextFocusableComponent(AtributoPanel);
+        btnEliminarPaqueteDir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarConex1ActionPerformed(evt);
+                btnEliminarPaqueteDirActionPerformed(evt);
             }
         });
 
@@ -475,38 +469,38 @@ public class JGene extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 266, Short.MAX_VALUE)
+            .add(jPanel1Layout.createSequentialGroup()
+                .add(25, 25, 25)
+                .add(btnPaqueteDirectorio, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 38, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(51, 51, 51)
+                .add(btnGuardarConfArch, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 38, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 52, Short.MAX_VALUE)
+                .add(btnEliminarPaqueteDir, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 38, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(25, 25, 25))
             .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                 .add(jPanel1Layout.createSequentialGroup()
-                    .add(58, 58, 58)
-                    .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                        .add(jPanel1Layout.createSequentialGroup()
-                            .add(btnNuevaConexion1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 38, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(18, 18, 18)
-                            .add(btnGuardarConfArch, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 38, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(18, 18, 18)
-                            .add(btnEliminarConex1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 38, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 150, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap(58, Short.MAX_VALUE)))
+                    .add(25, 25, 25)
+                    .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 217, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(25, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 0, Short.MAX_VALUE)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(btnPaqueteDirectorio, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 35, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, btnGuardarConfArch, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 35, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, btnEliminarPaqueteDir, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 35, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(79, 79, 79))
             .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                 .add(jPanel1Layout.createSequentialGroup()
                     .add(78, 78, 78)
                     .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 122, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                    .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                        .add(org.jdesktop.layout.GroupLayout.LEADING, btnGuardarConfArch, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(org.jdesktop.layout.GroupLayout.LEADING, btnEliminarConex1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(btnNuevaConexion1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addContainerGap(79, Short.MAX_VALUE)))
+                    .addContainerGap(122, Short.MAX_VALUE)))
         );
 
         jLabel9.setText("Paquete");
 
-        txtPaquete.setText("cr.ac.una.cgi.sigesa.pbs.abs");
         txtPaquete.setToolTipText("");
         txtPaquete.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         txtPaquete.setNextFocusableComponent(conexionPanel);
@@ -528,66 +522,38 @@ public class JGene extends javax.swing.JFrame {
                     .add(archivosPanelLayout.createSequentialGroup()
                         .add(archivosPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jLabel9)
-                            .add(archivosPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                                .add(archivosPanelLayout.createSequentialGroup()
-                                    .add(chkListForm)
-                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .add(txtDirListForm, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 431, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .add(18, 18, 18)
-                                    .add(btnFChListForm, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                .add(org.jdesktop.layout.GroupLayout.LEADING, archivosPanelLayout.createSequentialGroup()
-                                    .add(chkBean)
-                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .add(txtDirBean, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 431, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .add(18, 18, 18)
-                                    .add(btnFChBean, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                .add(archivosPanelLayout.createSequentialGroup()
+                            .add(archivosPanelLayout.createSequentialGroup()
+                                .add(archivosPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(chkDomain)
+                                    .add(chkRepository)
                                     .add(chkService)
-                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .add(txtDirService, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 431, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .add(18, 18, 18)
-                                    .add(btnFChService, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                .add(archivosPanelLayout.createSequentialGroup()
-                                    .add(archivosPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                                        .add(archivosPanelLayout.createSequentialGroup()
-                                            .add(archivosPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                                .add(chkDomain)
-                                                .add(chkRepository))
-                                            .add(39, 39, 39))
-                                        .add(org.jdesktop.layout.GroupLayout.LEADING, archivosPanelLayout.createSequentialGroup()
-                                            .add(chkScripts)
-                                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                    .add(archivosPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                        .add(archivosPanelLayout.createSequentialGroup()
-                                            .add(txtDirScript, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 431, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                            .add(18, 18, 18)
-                                            .add(btnFChScript, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                        .add(archivosPanelLayout.createSequentialGroup()
-                                            .add(archivosPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                                                .add(org.jdesktop.layout.GroupLayout.LEADING, txtPaquete)
-                                                .add(org.jdesktop.layout.GroupLayout.LEADING, txtDirDomain, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE))
-                                            .add(18, 18, 18)
-                                            .add(btnFChDomain, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                        .add(archivosPanelLayout.createSequentialGroup()
-                                            .add(txtDirRepository, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 431, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                            .add(18, 18, 18)
-                                            .add(btnFChRepository, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
-                                .add(archivosPanelLayout.createSequentialGroup()
-                                    .add(archivosPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                        .add(chkLovBean)
-                                        .add(chkEditForm))
-                                    .add(archivosPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
-                                        .add(archivosPanelLayout.createSequentialGroup()
-                                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .add(txtDirEditForm, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 431, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                            .add(18, 18, 18)
-                                            .add(btnFChEditForm, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                        .add(archivosPanelLayout.createSequentialGroup()
-                                            .add(50, 50, 50)
-                                            .add(txtDirLOVBean, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 431, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                            .add(18, 18, 18)
-                                            .add(btnFChLOVBeaN, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 33, Short.MAX_VALUE)
+                                    .add(chkBean)
+                                    .add(chkLovBean)
+                                    .add(chkEditForm)
+                                    .add(chkListForm)
+                                    .add(chkScripts))
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 9, Short.MAX_VALUE)
+                                .add(archivosPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(txtPaquete)
+                                    .add(txtDirDomain)
+                                    .add(txtDirRepository, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 469, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                    .add(txtDirService)
+                                    .add(txtDirBean)
+                                    .add(txtDirLOVBean)
+                                    .add(txtDirEditForm)
+                                    .add(txtDirListForm, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
+                                    .add(txtDirScript, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 467, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                .add(18, 18, 18)
+                                .add(archivosPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(btnFChDomain, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                    .add(btnFChRepository, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                    .add(btnFChService, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                    .add(btnFChBean, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                    .add(btnFChLOVBeaN, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                    .add(btnFChEditForm, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                    .add(btnFChListForm, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                    .add(btnFChScript, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                        .add(19, 19, 19)
                         .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(25, 25, 25))))
         );
@@ -606,7 +572,7 @@ public class JGene extends javax.swing.JFrame {
                         .add(archivosPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                             .add(jLabel9)
                             .add(txtPaquete))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 12, Short.MAX_VALUE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 20, Short.MAX_VALUE)
                         .add(archivosPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                             .add(btnFChDomain, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(archivosPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
@@ -762,10 +728,24 @@ public class JGene extends javax.swing.JFrame {
             Conexion cnx = (Conexion) iterador.next();
             listModel.addElement(cnx.getNombre());
         }
-        jlListaConexiones.setModel(listModel);
+        jListConexiones.setModel(listModel);
     }
 
-    private void jlListaConexionesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jlListaConexionesValueChanged
+    public void buscaDirectorios() throws ParserConfigurationException, TransformerException {
+        ConfDirectorio conf = new ConfDirectorio();
+        listaPaqueteDirectorios = new ArrayList<>();
+        listaPaqueteDirectorios = conf.listaPaqueteDirectorio();
+        DefaultListModel listModel = new DefaultListModel();
+        Iterator iterador = listaPaqueteDirectorios.listIterator();
+        while (iterador.hasNext()) {
+            PaqueteDirectorio pkg = (PaqueteDirectorio) iterador.next();
+            listModel.addElement(pkg.getNombre());
+        }
+        jListDirectorios.setModel(listModel);
+    }
+
+
+    private void jListConexionesValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListConexionesValueChanged
         if (!listaConex.isEmpty()) {
             Iterator iterador = listaConex.listIterator();
             JList list = (JList) evt.getSource();
@@ -778,16 +758,29 @@ public class JGene extends javax.swing.JFrame {
             }
             actualizaConexion();
         }
-    }//GEN-LAST:event_jlListaConexionesValueChanged
+    }//GEN-LAST:event_jListConexionesValueChanged
 
     public void limpiaConexion() {
-        jlListaConexiones.setSelectedIndex(-1);
+        jListConexiones.setSelectedIndex(1);
         txtNomConexion.setText("");
         txtURLConexion.setText("");
         txtUsuario.setText("");
         txtContraseña.setText("");
-        jlListaConexiones.indexToLocation(-1);
-        jlListaConexiones.clearSelection();
+        jListConexiones.indexToLocation(1);       
+    }
+
+    public void limpiaPaqueteDirectorio() {
+        jListDirectorios.setSelectedIndex(1);
+        txtPaquete.setText("");
+        txtDirDomain.setText("");
+        txtDirRepository.setText("");
+        txtDirService.setText("");
+        txtDirBean.setText("");
+        txtDirLOVBean.setText("");
+        txtDirListForm.setText("");
+        txtDirEditForm.setText("");
+        txtDirScript.setText("");
+        
     }
 
     public void actualizaConexion() {
@@ -797,18 +790,45 @@ public class JGene extends javax.swing.JFrame {
         txtContraseña.setText(conexionActiva.getContrasena());
     }
 
+    public void actualizaPaqueteDirectorio() {
+        txtPaquete.setText(paqueteDirectorioActivo.getNombre());
+        txtDirDomain.setText(paqueteDirectorioActivo.getDirectorios().get(0).getRuta());
+        txtDirRepository.setText(paqueteDirectorioActivo.getDirectorios().get(1).getRuta());
+        txtDirService.setText(paqueteDirectorioActivo.getDirectorios().get(2).getRuta());
+        txtDirBean.setText(paqueteDirectorioActivo.getDirectorios().get(3).getRuta());
+        txtDirLOVBean.setText(paqueteDirectorioActivo.getDirectorios().get(4).getRuta());
+        txtDirListForm.setText(paqueteDirectorioActivo.getDirectorios().get(5).getRuta());
+        txtDirEditForm.setText(paqueteDirectorioActivo.getDirectorios().get(6).getRuta());
+        txtDirScript.setText(paqueteDirectorioActivo.getDirectorios().get(7).getRuta());
+    }
+
     public void asignaConexion(Conexion conexion) {//asigna los valor de los txt y los asigna a la conexion enviada
         conexion.setNombre(txtNomConexion.getText());
         conexion.setURL(txtURLConexion.getText());
         conexion.setUsuario(txtUsuario.getText());
         conexion.setContrasena(txtContraseña.getText());
     }
-    
-    public void asignaDirectorio(Conexion conexion) {//asigna los valor de los txt y los asigna a la conexion enviada
-        conexion.setNombre(txtNomConexion.getText());
-        conexion.setURL(txtURLConexion.getText());
-        conexion.setUsuario(txtUsuario.getText());
-        conexion.setContrasena(txtContraseña.getText());
+
+    public void asignaDirectorio(PaqueteDirectorio paqueteDirectorio) {//asigna los valor de los txt y los asigna a la conexion enviada
+        ArrayList<Directorio> directorios = new ArrayList<>();
+        paqueteDirectorio.setNombre(txtPaquete.getText());
+        Directorio directorio = new Directorio("domain", txtDirDomain.getText());
+        directorios.add(directorio);
+        directorio = new Directorio("repository", txtDirRepository.getText());
+        directorios.add(directorio);
+        directorio = new Directorio("service", txtDirService.getText());
+        directorios.add(directorio);
+        directorio = new Directorio("bean", txtDirBean.getText());
+        directorios.add(directorio);
+        directorio = new Directorio("LOVBean", txtDirLOVBean.getText());
+        directorios.add(directorio);
+        directorio = new Directorio("listForm", txtDirListForm.getText());
+        directorios.add(directorio);
+        directorio = new Directorio("editForm", txtDirEditForm.getText());
+        directorios.add(directorio);
+        directorio = new Directorio("SQL", txtDirScript.getText());
+        directorios.add(directorio);
+        paqueteDirectorio.setDirectorios(directorios);
     }
 
     private void Buscar() throws ExceptionConnection {
@@ -1656,7 +1676,7 @@ public class JGene extends javax.swing.JFrame {
         }
     }
 
-     //</editor-fold>
+    //</editor-fold>
 
     private void btnNuevaConexionnuevaConexion(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaConexionnuevaConexion
         try {
@@ -1683,13 +1703,13 @@ public class JGene extends javax.swing.JFrame {
             } else if (conexion.getContrasena().trim().equals("")) {
                 JOptionPane.showMessageDialog(null, "La contraseña es requerido");
             } else {
-                if (jlListaConexiones.getSelectedIndex() == -1) {
+                if (jListConexiones.getSelectedIndex() == -1) {
                     conf.nuevaConexion(conexion);
                 } else {
-                    conf.modificarConexion(conexion, jlListaConexiones.getSelectedIndex());
+                    conf.modificarConexion(conexion, jListConexiones.getSelectedIndex());
                 }
 
-                buscaConexiones();
+                buscaConexiones();                
             }
         } catch (ParserConfigurationException ex) {
             Logger.getLogger(JClases.class.getName()).log(Level.SEVERE, null, ex);
@@ -1784,9 +1804,10 @@ public class JGene extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         try {
-            if (txtNomConexion.getText().trim().equals("")) {
-                JOptionPane.showMessageDialog(null, "El nombre de la conexión es requerida");
+            if (jListConexiones.getSelectedIndex()==-1) {
+                JOptionPane.showMessageDialog(null, "Es necesario seleccionar una conexión");
             } else {
+                txtTabla.setText(txtTabla.getText().toUpperCase());
                 Buscar();
             }
         } catch (ExceptionConnection ex) {
@@ -1799,18 +1820,12 @@ public class JGene extends javax.swing.JFrame {
         asignaConexion(conexion);
         ConfConexion conf = new ConfConexion();
         try {
-            if (conexion.getNombre().trim().equals("")) {
-                JOptionPane.showMessageDialog(null, "El nombre de la conexion es requeridad");
-            } else if (conexion.getURL().trim().equals("")) {
-                JOptionPane.showMessageDialog(null, "La dirección URL es requerida");
-            } else if (conexion.getUsuario().trim().equals("")) {
-                JOptionPane.showMessageDialog(null, "El usuario es requerido");
-            } else if (conexion.getContrasena().trim().equals("")) {
-                JOptionPane.showMessageDialog(null, "La contraseña es requerido");
-            } else {
-                conf.eliminarConexion(jlListaConexiones.getSelectedIndex());
-                buscaConexiones();
-            }
+            if (jListConexiones.getSelectedIndex()==-1) {
+                JOptionPane.showMessageDialog(null, "Seleccione la conexión que desea eliminar");
+            }else {
+                conf.eliminarConexion(jListConexiones.getSelectedIndex());
+                limpiaConexion();
+                buscaConexiones();            }
         } catch (ParserConfigurationException ex) {
             Logger.getLogger(JClases.class.getName()).log(Level.SEVERE, null, ex);
         } catch (TransformerException ex) {
@@ -1819,28 +1834,79 @@ public class JGene extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarConexActionPerformed
 
     private void btnGenerarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarActionPerformed
-        try {            
+        try {
             Generar();
         } catch (ExceptionConnection ex) {
             Logger.getLogger(JClases.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnGenerarActionPerformed
 
-    private void jlListaConexiones1ValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jlListaConexiones1ValueChanged
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jlListaConexiones1ValueChanged
-
-    private void btnNuevaConexion1nuevaConexion(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaConexion1nuevaConexion
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnNuevaConexion1nuevaConexion
+    private void jListDirectoriosValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jListDirectoriosValueChanged
+        if (!listaPaqueteDirectorios.isEmpty()) {
+            Iterator iterador = listaPaqueteDirectorios.listIterator();
+            JList list = (JList) evt.getSource();
+            String selected = list.getSelectedValue().toString();
+            while (iterador.hasNext()) {
+                PaqueteDirectorio pkg = (PaqueteDirectorio) iterador.next();
+                if (pkg.getNombre() == selected) {
+                    paqueteDirectorioActivo = pkg;
+                }
+            }
+            actualizaPaqueteDirectorio();
+        }   // TODO add your handling code here:
+    }//GEN-LAST:event_jListDirectoriosValueChanged
 
     private void btnGuardarConfArchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarConfArchActionPerformed
-        // TODO add your handling code here:
+        PaqueteDirectorio paqueteDirectorio = new PaqueteDirectorio();
+        asignaDirectorio(paqueteDirectorio);
+        ConfDirectorio conf = new ConfDirectorio();
+        try {
+            if (jListDirectorios.getSelectedIndex() == -1) {
+                conf.nuevoPaqueteDirectorio(paqueteDirectorio);
+            } else {
+                conf.modificarPaqueteDirectorio(paqueteDirectorio, jListDirectorios.getSelectedIndex());
+            }
+            buscaDirectorios();
+
+        } catch (ParserConfigurationException ex) {
+            Logger.getLogger(JGene.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (TransformerException ex) {
+            Logger.getLogger(JGene.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SAXException ex) {
+            Logger.getLogger(JGene.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(JGene.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnGuardarConfArchActionPerformed
 
-    private void btnEliminarConex1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarConex1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnEliminarConex1ActionPerformed
+    private void btnEliminarPaqueteDirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarPaqueteDirActionPerformed
+        PaqueteDirectorio paqueteDirectorio = new PaqueteDirectorio();
+        ConfDirectorio conf = new ConfDirectorio();
+        try {
+            if(jListDirectorios.getSelectedIndex()==-1){
+                JOptionPane.showMessageDialog(null, "Seleccione el paquete que desea elimnar!");
+            }else {
+                conf.eliminarPaqueteDirectorio(jListDirectorios.getSelectedIndex());
+                limpiaPaqueteDirectorio();
+                buscaDirectorios();                
+            }
+        } catch (ParserConfigurationException ex) {
+            Logger.getLogger(JClases.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (TransformerException ex) {
+            Logger.getLogger(JClases.class.getName()).log(Level.SEVERE, null, ex);
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_btnEliminarPaqueteDirActionPerformed
+
+    private void btnPaqueteDirectorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPaqueteDirectorioActionPerformed
+        try {
+            limpiaPaqueteDirectorio();
+            buscaDirectorios();
+        } catch (ParserConfigurationException ex) {
+            Logger.getLogger(JGene.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (TransformerException ex) {
+            Logger.getLogger(JGene.class.getName()).log(Level.SEVERE, null, ex);
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPaqueteDirectorioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1887,7 +1953,7 @@ public class JGene extends javax.swing.JFrame {
     private javax.swing.JPanel archivosPanel;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnEliminarConex;
-    private javax.swing.JButton btnEliminarConex1;
+    private javax.swing.JButton btnEliminarPaqueteDir;
     private javax.swing.JButton btnFChBean;
     private javax.swing.JButton btnFChDomain;
     private javax.swing.JButton btnFChEditForm;
@@ -1900,8 +1966,8 @@ public class JGene extends javax.swing.JFrame {
     private javax.swing.JButton btnGuardarConexion;
     private javax.swing.JButton btnGuardarConfArch;
     private javax.swing.JButton btnNuevaConexion;
-    private javax.swing.JButton btnNuevaConexion1;
     private javax.swing.JButton btnNuevoCampo;
+    private javax.swing.JButton btnPaqueteDirectorio;
     private javax.swing.JComboBox cboRelacion;
     private javax.swing.JComboBox cboTipoAtributo;
     private javax.swing.JComboBox cboTipoComponente;
@@ -1924,14 +1990,14 @@ public class JGene extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JList jListConexiones;
+    private javax.swing.JList jListDirectorios;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTable jTable4;
-    private javax.swing.JList jlListaConexiones;
-    private javax.swing.JList jlListaConexiones1;
     private javax.swing.JTabbedPane pestanasTabPanel;
     private javax.swing.JRadioButton rbAser;
     private javax.swing.JRadioButton rbCrud;

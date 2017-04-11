@@ -5,22 +5,22 @@
  */
 package clases;
 
+import java.util.AbstractList;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author sigesa
  */
-public class Directorio {
+public class PaqueteDirectorio {
     private String nombre;
-    private String ruta;
+    private List<Directorio> directorios;
 
-    public Directorio() {
+    public PaqueteDirectorio() {
+        directorios = new ArrayList<Directorio>();
     }
 
-    public Directorio(String nombre, String ruta) {
-        this.nombre = nombre;
-        this.ruta = ruta;
-    }
-    
     public String getNombre() {
         return nombre;
     }
@@ -29,13 +29,12 @@ public class Directorio {
         this.nombre = nombre;
     }
 
-    public String getRuta() {
-        return ruta;
+    public List<Directorio> getDirectorios() {
+        return directorios;
     }
 
-    public void setRuta(String ruta) {
-        this.ruta = ruta;
+    public void setDirectorios(List<Directorio> directorios) {
+        this.directorios = directorios;
     }
-    
     
 }
