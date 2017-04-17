@@ -7,71 +7,70 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.AbstractTableModel;
-import forms.JClases;
 
 public class CamposTableModel extends AbstractTableModel {
 
     private ArrayList<Campo> campos;
     private String[] columns;
     int initialRowCount;
-    private Object[][] data = {{null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null ,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null},
-    {null, null, null, null, null, null,null, null,null}
+    private Object[][] data = {{null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null},
+    {null, null, null, null, null, null, null, null, null}
     };
 
     Class[] types = new Class[]{
         java.lang.Boolean.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
     };
     boolean[] canEdit = new boolean[]{
-        true, true, false,true, true, true, true,true,true
+        true, true, false, true, true, true, true, true, true
     };
 
     public Class getColumnClass(int columnIndex) {
@@ -85,7 +84,7 @@ public class CamposTableModel extends AbstractTableModel {
     public CamposTableModel(ArrayList<Campo> aCamposList) {
         super();
         campos = aCamposList;
-        columns = new String[]{"", "Campo", "Tipo", "Tamaño" ,"Atributo", "Tipo Atributo", "Relación","Componente","Etiqueta"};
+        columns = new String[]{"", "Campo", "Tipo", "Tamaño", "Atributo", "Tipo Atributo", "Relación", "Componente", "Etiqueta"};
         llenaGrid();
 
     }
@@ -93,7 +92,7 @@ public class CamposTableModel extends AbstractTableModel {
     public CamposTableModel() {
         super();
         campos = new ArrayList<>();
-        columns = new String[]{"", "Campo", "Tipo","Tamaño" , "Atributo", "Tipo Atributo", "Relación","Componente","Etiqueta"};
+        columns = new String[]{"", "Campo", "Tipo", "Tamaño", "Atributo", "Tipo Atributo", "Relación", "Componente", "Etiqueta"};
     }
 
     // Number of column of your table
@@ -111,7 +110,6 @@ public class CamposTableModel extends AbstractTableModel {
             data[row][col] = value;
             fireTableCellUpdated(row, col);
         } catch (Exception ex) {
-            Logger.getLogger(JClases.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -123,16 +121,15 @@ public class CamposTableModel extends AbstractTableModel {
             setValueAt(campo.getSelected(), fila, 0);
             setValueAt(campo.getNombreCampo(), fila, 1);
             setValueAt(campo.getTipoCampo(), fila, 2);
-            setValueAt(campo.getTamanno(),fila,3);
+            setValueAt(campo.getTamanno(), fila, 3);
             setValueAt(campo.getNombreAtributo(), fila, 4);
             setValueAt(campo.getTipoAtributo(), fila, 5);
             setValueAt(campo.getTipoRelacion(), fila, 6);
             setValueAt(campo.getComponente(), fila, 7);
-            setValueAt(campo.getEtiqueta(), fila, 8);            
+            setValueAt(campo.getEtiqueta(), fila, 8);
             fila += 1;
         }
-        
-        
+
     }
 
     // The object to render in a cell

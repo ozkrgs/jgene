@@ -852,7 +852,7 @@ public class JGene extends javax.swing.JFrame {
                 jTable4.setModel(model1);
 
                 if (oconnector.openConnection()) {
-                    stm = (PreparedStatement) oconnector.getConexion().prepareStatement(JClases.SQLColumnas());
+                    stm = (PreparedStatement) oconnector.getConexion().prepareStatement(SQLColumnas());
                     stm.setString(1, nombreTabla);
 
                     try {
@@ -1718,13 +1718,13 @@ public class JGene extends javax.swing.JFrame {
                 buscaConexiones();                
             }
         } catch (ParserConfigurationException ex) {
-            Logger.getLogger(JClases.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JGene.class.getName()).log(Level.SEVERE, null, ex);
         } catch (TransformerException ex) {
-            Logger.getLogger(JClases.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JGene.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SAXException ex) {
-            Logger.getLogger(JClases.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JGene.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(JClases.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JGene.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnGuardarConexionActionPerformed
 
@@ -1776,6 +1776,21 @@ public class JGene extends javax.swing.JFrame {
             System.out.println("File access cancelled by user.");
         }
     }
+    
+     public synchronized static String SQLTablas(String tabla) {
+        String sql = "select table_name from DBA_TABLES where table_name='" + tabla + "'";
+        return sql;
+    }//
+
+    public synchronized static String SQLColumnas() {
+        String sql = "select column_name, data_type,data_length , nullable from all_tab_columns where table_name = ? order by column_id";
+        return sql;
+    }//
+
+    public synchronized static String SQLPk() {
+        String sql = "select uc.table_name, ucc.column_name,tc.data_type from user_cons_columns ucc join user_constraints uc  on ucc.constraint_name=uc.constraint_name join all_tab_columns tc on tc.column_name = ucc.column_name where uc.constraint_type='P' and  uc.TABLE_NAME=?";
+        return sql;
+}//
     private void btnFChDomainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFChDomainActionPerformed
         seleccionaDirectorio(1);
     }//GEN-LAST:event_btnFChDomainActionPerformed
@@ -1817,7 +1832,7 @@ public class JGene extends javax.swing.JFrame {
                 Buscar();
             }
         } catch (ExceptionConnection ex) {
-            Logger.getLogger(JClases.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JGene.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -1833,9 +1848,9 @@ public class JGene extends javax.swing.JFrame {
                 limpiaConexion();
                 buscaConexiones();            }
         } catch (ParserConfigurationException ex) {
-            Logger.getLogger(JClases.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JGene.class.getName()).log(Level.SEVERE, null, ex);
         } catch (TransformerException ex) {
-            Logger.getLogger(JClases.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JGene.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnEliminarConexActionPerformed
 
@@ -1843,7 +1858,7 @@ public class JGene extends javax.swing.JFrame {
         try {
             Generar();
         } catch (ExceptionConnection ex) {
-            Logger.getLogger(JClases.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JGene.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnGenerarActionPerformed
 
@@ -1897,9 +1912,9 @@ public class JGene extends javax.swing.JFrame {
                 buscaDirectorios();                
             }
         } catch (ParserConfigurationException ex) {
-            Logger.getLogger(JClases.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JGene.class.getName()).log(Level.SEVERE, null, ex);
         } catch (TransformerException ex) {
-            Logger.getLogger(JClases.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JGene.class.getName()).log(Level.SEVERE, null, ex);
         }        // TODO add your handling code here:
     }//GEN-LAST:event_btnEliminarPaqueteDirActionPerformed
 
