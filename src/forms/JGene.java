@@ -148,7 +148,7 @@ public class JGene extends javax.swing.JFrame {
         btnBuscar = new javax.swing.JButton();
         btnGenerar = new javax.swing.JToggleButton();
 
-        cboRelacion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "@OneToOne", "@OneToMany", "@ManyToOne", "@ManyToOne(Mestro)", "@Transient" }));
+        cboRelacion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "@OneToOne", "@OneToMany", "@ManyToOne", "@ManyToOne(Maestro)", "@Transient" }));
 
         cboTipoAtributo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "String", "int", "Date", "double", "float" }));
 
@@ -301,6 +301,7 @@ public class JGene extends javax.swing.JFrame {
         jTable4.setColumnSelectionAllowed(true);
         jTable4.getTableHeader().setReorderingAllowed(false);
         jScrollPane5.setViewportView(jTable4);
+        jTable4.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
         btnNuevoCampo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ui-plus.png"))); // NOI18N
         btnNuevoCampo.setToolTipText("Insertar Campo");
@@ -1032,7 +1033,7 @@ public class JGene extends javax.swing.JFrame {
                             pw.println("@JoinColumn(name=\"" + c.getNombreCampo().toUpperCase() + "\")");
                             pw.println("private " + c.getTipoAtributo() + " " + c.getNombreAtributo() + ";");
                             break;
-                        case "@ManyToOne(Mestro)":
+                        case "@ManyToOne(Maestro)":
                             pw.println("@ManyToOne(fetch = FetchType.LAZY, optional = false)");
                             pw.println("@JoinColumn(name=\"" + c.getNombreCampo().toUpperCase() + "\",referencedColumnName=\"ID_" + c.getNombreCampo().toUpperCase() + "\",nullable = false,insertable = false,updatable = false)");
                             pw.println("private " + c.getTipoAtributo() + " " + c.getNombreAtributo() + ";");
