@@ -152,7 +152,7 @@ public class JGene extends javax.swing.JFrame {
 
         cboTipoAtributo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "String", "int", "Date", "double", "float" }));
 
-        cboTipoComponente.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "p:inputText", "sdkuna:inputTextArea", "components:inputTextArea", "p:spinner", "p:selectBooleanCheckbox", "p:selectOneMenu", "p:autoComplete", "p:calendar", "components:detailNoEditTableHorizontal", "p:editor", " " }));
+        cboTipoComponente.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N/A", "p:inputText", "sdkuna:inputTextArea", "una:inputNumber", "components:inputTextArea", "p:spinner", "p:selectBooleanCheckbox", "p:selectOneMenu", "p:autoComplete", "p:calendar", "components:detailNoEditTableHorizontal", "p:editor" }));
 
         fchDirectorio.setFileSelectionMode(javax.swing.JFileChooser.DIRECTORIES_ONLY);
         fchDirectorio.setToolTipText("");
@@ -1573,6 +1573,11 @@ public class JGene extends javax.swing.JFrame {
                         pw.println(" <p:spinner id=\"" + c.getNombreAtributo() + "Spinner\"                                                          \n"
                                 + "value=\"#{" + Utilitarios.firstLetterLower(nombreEntidad) + "Bean.entity." + c.getNombreAtributo() + "}\"\n"
                                 + "min=\"1\" max=\"1000\" \n"
+                                + "required=\"false\"\n"
+                                + "suffix=\"%\" \n"
+                                + "stepFactor=\"1\"\n"
+                                + "size=\"25\" \n"
+                                + "style=\"text-align: right\"\n"
                                 + "styleClass=\"una-spinner-secuencia\" \n"
                                 + "placeholder=\"#{i18n." + Utilitarios.firstLetterLower(nombreEntidad) + "_placeholder_" + c.getNombreAtributo() + "}\">"
                                 + "</p:spinner>");
@@ -1586,6 +1591,27 @@ public class JGene extends javax.swing.JFrame {
                                 + "style=\"width: 100%\"/>");
                         pw.println("");
                         break;
+                     case "una:inputNumber":
+                        pw.println("<p:outputLabel id=\"" + c.getNombreAtributo() + "OutputLabel\" for=\"" + c.getNombreAtributo() + "InputTextArea\"  value=\"#{i18n." + Utilitarios.firstLetterLower(nombreEntidad) + "_" + c.getNombreAtributo() + "_label}\" />");
+                        agregarLineaInternacionalizacion(Utilitarios.firstLetterLower(nombreEntidad) + "_" + c.getNombreAtributo() + "_label", c.getEtiqueta());
+                        pw.println("<una:inputNumber id=\"" + c.getNombreAtributo() + "InputNumber\"\n" +
+"                                                 value=\"#{" + Utilitarios.firstLetterLower(nombreEntidad) + "Bean.entity." + c.getNombreAtributo() + "}\"\n" +
+"                                                 required=\"false\"\n" +
+"                                                 disabled=\"true\"\n" +
+"                                                 symbol=\"#{simboloMonedaBean.simboloLocal}\"\n" +
+"                                                 maxValue=\"9223372036854775807\"\n" +
+"                                                 minValue=\"-9223372036854775807\"\n" +
+"                                                 dir=\"RTL\"\n" +
+"                                                 maxlength=\"50\"\n" +
+"                                                 decimalSeparator=\",\" \n" +
+"                                                 thousandSeparator=\".\">                                           \n" +
+"                                </una:inputNumber>");
+                        pw.println("<p:message id=\"" + c.getNombreAtributo() + "Message\" for=\"" + c.getNombreAtributo() + "InputTextArea\"/>");
+                        
+                        
+                        
+                        break;    
+                    
                     case "p:autoComplete":
                         pw.println("<p:outputLabel id=\"" + c.getNombreAtributo() + "OutputLabel\" for=\"" + c.getNombreAtributo() + "AutoComplete\"  value=\"#{i18n." + Utilitarios.firstLetterLower(nombreEntidad) + "_" + c.getNombreAtributo() + "_label}\" />");
                         agregarLineaInternacionalizacion(Utilitarios.firstLetterLower(nombreEntidad) + "_" + c.getNombreAtributo() + "_label", c.getEtiqueta());

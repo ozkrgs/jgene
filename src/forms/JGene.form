@@ -36,15 +36,15 @@
             <StringItem index="0" value="N/A"/>
             <StringItem index="1" value="p:inputText"/>
             <StringItem index="2" value="sdkuna:inputTextArea"/>
-            <StringItem index="3" value="components:inputTextArea"/>
-            <StringItem index="4" value="p:spinner"/>
-            <StringItem index="5" value="p:selectBooleanCheckbox"/>
-            <StringItem index="6" value="p:selectOneMenu"/>
-            <StringItem index="7" value="p:autoComplete"/>
-            <StringItem index="8" value="p:calendar"/>
-            <StringItem index="9" value="components:detailNoEditTableHorizontal"/>
-            <StringItem index="10" value="p:editor"/>
-            <StringItem index="11" value=" "/>
+            <StringItem index="3" value="una:inputNumber"/>
+            <StringItem index="4" value="components:inputTextArea"/>
+            <StringItem index="5" value="p:spinner"/>
+            <StringItem index="6" value="p:selectBooleanCheckbox"/>
+            <StringItem index="7" value="p:selectOneMenu"/>
+            <StringItem index="8" value="p:autoComplete"/>
+            <StringItem index="9" value="p:calendar"/>
+            <StringItem index="10" value="components:detailNoEditTableHorizontal"/>
+            <StringItem index="11" value="p:editor"/>
           </StringArray>
         </Property>
       </Properties>
