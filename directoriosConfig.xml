@@ -1,35 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><rutas>
 
-<directorio nombre="cr.ac.una.cgi.sigesa.pbs.abs">
-
-<domain>/home/sigesa/NetBeansProjects/sigesa-aggregator/sigesa-jpa/src/main/java/cr/ac/una/cgi/sigesa/pbs/abs/domain/</domain>
-
-<repository>/home/sigesa/NetBeansProjects/sigesa-aggregator/sigesa-jpa/src/main/java/cr/ac/una/cgi/sigesa/pbs/abs/repository/</repository>
-
-<service>/home/sigesa/NetBeansProjects/sigesa-pbs-abs/sigesa-pbs-abs-service/src/main/java/cr/ac/una/cgi/sigesa/pbs/abs/service/</service>
-
-<bean>/home/sigesa/NetBeansProjects/sigesa-pbs-abs/sigesa-pbs-abs-web/src/main/java/cr/ac/una/cgi/sigesa/pbs/abs/view/model/</bean>
-
-<LOVBean>/home/sigesa/NetBeansProjects/sigesa-pbs-abs/sigesa-pbs-abs-web/src/main/java/cr/ac/una/cgi/sigesa/pbs/abs/view/LOV/</LOVBean>
-
-<listForm>/home/sigesa/NetBeansProjects/sigesa-pbs-abs/sigesa-pbs-abs-web/src/main/resources/META-INF/resources/pages/</listForm>
-
-<editForm>/home/sigesa/NetBeansProjects/sigesa-pbs-abs/sigesa-pbs-abs-web/src/main/resources/META-INF/resources/pages/</editForm>
-
-<SQL>/home/sigesa/Desarrollo/JGeneArchivos/Regionalizacion/</SQL>
 
 
-</directorio>
-<directorio nombre="cr.ac.una.cgi.sigesa.epf.cpr">a-jpa/src/main/java/cr/ac/una/cgi/sigesa/pbs/abs/repository/4<domain>/home/sigesa/NetBeansProjects/seb/src/main/java/cr/ac/una/cgi/sigesa/pbs/abs/view/model/</domain>/home/sigesa/NetBeain/resources/META-INF/resources/pages/<repository>/JGeneArchivos/Regionalizacion/</repository>/home/sipbs-abs-web/src/main/java/cr/ac/una/cgi/sigesa/pbs/abs/view/LOV/<service>/home/sigesa/NetBeain/resources/META-INF/resources/pages/</service>/home/sigesmain/resources/META-INF/resources/pages/<bean>/JGeneArchivos/Regionalizacion/</bean>
 
-<LOVBean>/home/sipbs-abs-web/src/main/java/cr/ac/una/cgi/sigesa/pbs/abs/view/LOV/</LOVBean>
-
-<listForm>/home/sigesa/NetBeain/resources/META-INF/resources/pages/</listForm>
-
-<editForm>/home/sigesmain/resources/META-INF/resources/pages/</editForm>
-
-<SQL>/JGeneArchivos/Regionalizacion/</SQL>
-
-</directorio>
-
-</rutas>
+<directorio nombre="cr.ac.una.cgi.sigesa.epf.atv"><domain>/home/sigesa/NetBeansProjects/sigesa-aggregator/sigesa-jpa/src/main/java/cr/ac/una/cgi/sigesa/epf/atv/domain/</domain><repository>/home/sigesa/NetBeansProjects/sigesa-aggregator/sigesa-jpa/src/main/java/cr/ac/una/cgi/sigesa/epf/atv/repository/</repository><service>/home/sigesa/NetBeansProjects/sigesa-epf-atv/sigesa-epf-atv-service/src/main/java/cr/ac/una/cgi/sigesa/epf/atv/service/</service><bean>/home/sigesa/NetBeansProjects/sigesa-epf-atv/sigesa-epf-atv-web/src/main/java/cr/ac/una/cgi/sigesa/epf/atv/view/model/</bean><LOVBean>/home/sigesa/NetBeansProjects/sigesa-epf-atv/sigesa-epf-atv-web/src/main/java/cr/ac/una/cgi/sigesa/epf/atv/view/LOV/</LOVBean><listForm>/home/sigesa/NetBeansProjects/sigesa-epf-atv/sigesa-epf-atv-web/src/main/resources/META-INF/resources/pages/</listForm><editForm>/home/sigesa/NetBeansProjects/sigesa-epf-atv/sigesa-epf-atv-web/src/main/resources/META-INF/resources/pages/</editForm><SQL>/home/sigesa/Desarrollo/JGeneArchivos/Regionalizacion/</SQL></directorio></rutas>
