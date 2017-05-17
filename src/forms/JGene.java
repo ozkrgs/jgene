@@ -1380,7 +1380,7 @@ public class JGene extends javax.swing.JFrame {
             fichero = new FileWriter(ruta);
             pw = new PrintWriter(fichero);
             agregarComentarioInternacionalizacion(Utilitarios.firstLetterLower(nombreEntidad) + "ListForm.xhtml");
-            pw.println("<ui:composition template=\"../templates/crud.xhtml\"");
+            pw.println("<ui:composition template=\"/templates/crud.xhtml\"");
             pw.println("xmlns=\"http://www.w3.org/1999/xhtml\"  ");
             pw.println("xmlns:f=\"http://java.sun.com/jsf/core\"");
             pw.println("xmlns:h=\"http://java.sun.com/jsf/html\"");
@@ -1437,7 +1437,7 @@ public class JGene extends javax.swing.JFrame {
             fichero = new FileWriter(ruta);
             pw = new PrintWriter(fichero);
 
-            pw.println("<ui:composition template=\"../templates/crud.xhtml\"");
+            pw.println("<ui:composition template=\"/templates/crud.xhtml\"");
             pw.println("xmlns=\"http://www.w3.org/1999/xhtml\"  ");
             pw.println("xmlns:f=\"http://java.sun.com/jsf/core\"");
             pw.println("xmlns:h=\"http://java.sun.com/jsf/html\"");
