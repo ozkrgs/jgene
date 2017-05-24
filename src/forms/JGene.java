@@ -1592,7 +1592,7 @@ public class JGene extends javax.swing.JFrame {
                         pw.println("");
                         break;
                      case "una:inputNumber":
-                        pw.println("<p:outputLabel id=\"" + c.getNombreAtributo() + "OutputLabel\" for=\"" + c.getNombreAtributo() + "InputTextArea\"  value=\"#{i18n." + Utilitarios.firstLetterLower(nombreEntidad) + "_" + c.getNombreAtributo() + "_label}\" />");
+                        pw.println("<p:outputLabel id=\"" + c.getNombreAtributo() + "OutputLabel\" for=\"" + c.getNombreAtributo() + "InputNumber\"  value=\"#{i18n." + Utilitarios.firstLetterLower(nombreEntidad) + "_" + c.getNombreAtributo() + "_label}\" />");
                         agregarLineaInternacionalizacion(Utilitarios.firstLetterLower(nombreEntidad) + "_" + c.getNombreAtributo() + "_label", c.getEtiqueta());
                         pw.println("<una:inputNumber id=\"" + c.getNombreAtributo() + "InputNumber\"\n" +
 "                                                 value=\"#{" + Utilitarios.firstLetterLower(nombreEntidad) + "Bean.entity." + c.getNombreAtributo() + "}\"\n" +
