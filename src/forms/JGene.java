@@ -1606,7 +1606,7 @@ public class JGene extends javax.swing.JFrame {
 "                                                 decimalSeparator=\",\" \n" +
 "                                                 thousandSeparator=\".\">                                           \n" +
 "                                </una:inputNumber>");
-                        pw.println("<p:message id=\"" + c.getNombreAtributo() + "Message\" for=\"" + c.getNombreAtributo() + "InputTextArea\"/>");
+                        pw.println("<p:message id=\"" + c.getNombreAtributo() + "Message\" for=\"" + c.getNombreAtributo() + "InputNumber\"/>");
                         
                         
                         
@@ -1641,9 +1641,12 @@ public class JGene extends javax.swing.JFrame {
                                 + "<components:dialogFrameworkData id=\"" + c.getNombreAtributo() + "ListDialog\"\n"
                                 + "lOVBean=\"#{" + Utilitarios.firstLetterLower(c.getNombreAtributo()) + "LOVBean}\"\n"
                                 + "target=\"#{" + Utilitarios.firstLetterLower(nombreEntidad) + "Bean.entity." + c.getNombreAtributo() + "}\"\n"
+                                + "title=\"#{i18n." + Utilitarios.firstLetterLower(nombreEntidad) + "_" + c.getNombreAtributo() + "_LOV_title}\"\n"
+                                + "methodName=\"\"\n"
                                 + "update=\"" + c.getNombreAtributo() + "AutoComplete\" />\n"
                                 + "</p:outputPanel>");
                         agregarLineaInternacionalizacion(Utilitarios.firstLetterLower(nombreEntidad) + "_" + c.getNombreAtributo() + "_select_label", "Seleccione XX " + c.getEtiqueta().toLowerCase());
+                        agregarLineaInternacionalizacion(Utilitarios.firstLetterLower(nombreEntidad) + "_" + c.getNombreAtributo() + "_LOV_title", "Lista de " + c.getEtiqueta());
                         pw.println("<p:message id=\"" + c.getNombreAtributo() + "Message\" for=\"" + c.getNombreAtributo() + "AutoComplete\"/>");
                         pw.println("");
                         break;
