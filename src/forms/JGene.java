@@ -1596,8 +1596,8 @@ public class JGene extends javax.swing.JFrame {
                         agregarLineaInternacionalizacion(Utilitarios.firstLetterLower(nombreEntidad) + "_" + c.getNombreAtributo() + "_label", c.getEtiqueta());
                         pw.println("<una:inputNumber id=\"" + c.getNombreAtributo() + "InputNumber\"\n" +
 "                                                 value=\"#{" + Utilitarios.firstLetterLower(nombreEntidad) + "Bean.entity." + c.getNombreAtributo() + "}\"\n" +
-"                                                 required=\"false\"\n" +
-"                                                 disabled=\"true\"\n" +
+"                                                 required=\"true\"\n" +
+"                                                 disabled=\"false\"\n" +
 "                                                 symbol=\"#{simboloMonedaBean.simboloLocal}\"\n" +
 "                                                 maxValue=\"9223372036854775807\"\n" +
 "                                                 minValue=\"-9223372036854775807\"\n" +
