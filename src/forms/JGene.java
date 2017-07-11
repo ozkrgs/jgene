@@ -1628,6 +1628,7 @@ public class JGene extends javax.swing.JFrame {
                                 + "converter=\"#{" + c.getNombreAtributo() + "Bean.converter}\"\n"
                                 + "forceSelection=\"true\"\n"
                                 + "scrollHeight=\"200\"\n"
+                                + "noSelectedOption=\"true\"\n"
                                 + "noSelectedLabel=\"#{i18n." + Utilitarios.firstLetterLower(nombreEntidad) + "_" + c.getNombreAtributo() + "_select_label}\" \n"
                                 + "onNoSelectedOption=\"#{" + Utilitarios.firstLetterLower(nombreEntidad) + "Bean.handleClear" + Utilitarios.firstLetterUpper(c.getNombreAtributo()) + "()}\"\n"
                                 + "required=\"true\"\n"
