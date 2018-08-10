@@ -19,10 +19,14 @@ import java.io.PrintWriter;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JList;
@@ -54,7 +58,7 @@ public class JGene extends javax.swing.JFrame {
         initComponents();
 //        txtEntidad.setEnabled(false);
 //        txtTitulo.setEnabled(false);
-       // txtPaquete.setEnabled(false);
+        // txtPaquete.setEnabled(false);
         // btnGenerar.setEnabled(false);
         btnNuevoCampo.setEnabled(false);
 
@@ -773,7 +777,7 @@ public class JGene extends javax.swing.JFrame {
         txtURLConexion.setText("");
         txtUsuario.setText("");
         txtContraseña.setText("");
-        jListConexiones.indexToLocation(1);       
+        jListConexiones.indexToLocation(1);
     }
 
     public void limpiaPaqueteDirectorio() {
@@ -787,7 +791,7 @@ public class JGene extends javax.swing.JFrame {
         txtDirListForm.setText("");
         txtDirEditForm.setText("");
         txtDirScript.setText("");
-        
+
     }
 
     public void actualizaConexion() {
@@ -1004,12 +1008,13 @@ public class JGene extends javax.swing.JFrame {
             pw.println("import javax.persistence.OneToOne;");
             pw.println("import javax.persistence.OneToMany;");
             pw.println("import javax.persistence.Transient;");
+
+            pw.println("/** \n* @author JGene \n* @since " + generarFechaActual() + " \n* @version 0.0.1 \n*/");
+
             pw.println("@Entity");
             pw.println("@Table(name = \"" + nombreTabla + "\")");
             pw.println("@AttributeOverride(name = \"id\", column =@Column(name = \"ID_" + nombreTabla + "\"))");
             pw.println("@SequenceGenerator(name = \"sequence\", sequenceName = \"SQ_" + nombreTabla + "\", allocationSize = 1)");
-
-            pw.println("");
 
             pw.println("public class " + nombreEntidad + " extends BaseEntity<Usuario, CampoConfigurable> {");
             if (!listaCampos.isEmpty()) {
@@ -1094,8 +1099,10 @@ public class JGene extends javax.swing.JFrame {
             pw.println("import cr.ac.una.cgi.sdkuna.generic.GenericRepository;");
             pw.println("import org.springframework.stereotype.Repository;");
             pw.println("import javax.persistence.Table;");
+            
+            pw.println("/** \n* @author JGene \n* @since " + generarFechaActual() + " \n* @version 0.0.1 \n*/");
+            
             pw.println("@Repository");
-            pw.println("");
             pw.println("public interface " + nombreEntidad + "Repository extends GenericRepository<" + nombreEntidad + "> {");
             pw.println("}");
         } catch (Exception e) {
@@ -1125,6 +1132,9 @@ public class JGene extends javax.swing.JFrame {
             pw.println("import  " + txtPaquete.getText() + ".domain." + nombreEntidad + ";");
             pw.println("import cr.ac.una.cgi.sdkuna.api.service.EntityService;");
             pw.println("import java.util.List;");
+            
+            pw.println("/** \n* @author JGene \n* @since " + generarFechaActual() + " \n* @version 0.0.1 \n*/");
+            
             pw.println("public interface " + nombreEntidad + "Service extends EntityService<" + nombreEntidad + "> {");
             pw.println("}");
         } catch (Exception e) {
@@ -1157,6 +1167,8 @@ public class JGene extends javax.swing.JFrame {
             pw.println("import java.util.List;");
             pw.println("import org.springframework.stereotype.Service;");
             pw.println("import org.springframework.transaction.annotation.Transactional;");
+            pw.println("");
+            pw.println("/** \n* @author JGene \n* @since " + generarFechaActual() + " \n* @version 0.0.1 \n*/");
             pw.println("");
             pw.println("@Service");
             pw.println("@Transactional");
@@ -1198,6 +1210,8 @@ public class JGene extends javax.swing.JFrame {
             pw.println("import org.springframework.stereotype.Component;");
             pw.println("import javax.annotation.PostConstruct;");
 
+            pw.println("/** \n* @author JGene \n* @since " + generarFechaActual() + " \n* @version 0.0.1 \n*/");
+            
             pw.println("@Component");
             pw.println("@Scope(\"session\")");
             pw.println("public class " + nombreEntidad + "Bean extends CRUDImpl<" + nombreEntidad + ", " + nombreEntidad + "Service> implements CRUD{");
@@ -1263,6 +1277,8 @@ public class JGene extends javax.swing.JFrame {
             pw.println("import org.springframework.context.annotation.Scope;");
             pw.println("import org.springframework.stereotype.Component;");
             pw.println("import javax.annotation.PostConstruct;");
+            
+            pw.println("/** \n* @author JGene \n* @since " + generarFechaActual() + " \n* @version 0.0.1 \n*/");
 
             pw.println("@Component");
             pw.println("@Scope(\"session\")");
@@ -1330,6 +1346,8 @@ public class JGene extends javax.swing.JFrame {
             pw.println("import org.springframework.stereotype.Component;");
             pw.println("import javax.annotation.PostConstruct;");
 
+            pw.println("/** \n* @author JGene \n* @since " + generarFechaActual() + " \n* @version 0.0.1 \n*/");
+            
             pw.println("@Component");
             pw.println("@Scope(\"session\")");
             pw.println("public class " + nombreEntidad + "LOVBean extends LOVImpl<" + nombreEntidad + ", " + nombreEntidad + "Service> implements LOV{");
@@ -1533,7 +1551,7 @@ public class JGene extends javax.swing.JFrame {
                                 + "value=\"#{" + Utilitarios.firstLetterLower(nombreEntidad) + "Bean.entity." + c.getNombreAtributo() + "}\"\n"
                                 + "required=\"true\"\n"
                                 + "showOn=\"button\"\n"
-                                + "pattern=\"dd/MM/yyy\"\n"
+                                + "pattern=\"dd/MM/yyyy\"\n"
                                 + "navigator=\"true\"\n"
                                 + "locale=\"es\"/>");
                         pw.println("<p:message id=\"" + c.getNombreAtributo() + "Message\" for=\"" + c.getNombreAtributo() + "Calendar\"/>");
@@ -1591,27 +1609,25 @@ public class JGene extends javax.swing.JFrame {
                                 + "style=\"width: 100%\"/>");
                         pw.println("");
                         break;
-                     case "una:inputNumber":
+                    case "una:inputNumber":
                         pw.println("<p:outputLabel id=\"" + c.getNombreAtributo() + "OutputLabel\" for=\"" + c.getNombreAtributo() + "InputNumber\"  value=\"#{i18n." + Utilitarios.firstLetterLower(nombreEntidad) + "_" + c.getNombreAtributo() + "_label}\" />");
                         agregarLineaInternacionalizacion(Utilitarios.firstLetterLower(nombreEntidad) + "_" + c.getNombreAtributo() + "_label", c.getEtiqueta());
-                        pw.println("<una:inputNumber id=\"" + c.getNombreAtributo() + "InputNumber\"\n" +
-"                                                 value=\"#{" + Utilitarios.firstLetterLower(nombreEntidad) + "Bean.entity." + c.getNombreAtributo() + "}\"\n" +
-"                                                 required=\"true\"\n" +
-"                                                 disabled=\"false\"\n" +
-"                                                 symbol=\"#{simboloMonedaBean.simboloLocal}\"\n" +
-"                                                 maxValue=\"9223372036854775807\"\n" +
-"                                                 minValue=\"-9223372036854775807\"\n" +
-"                                                 dir=\"RTL\"\n" +
-"                                                 maxlength=\"50\"\n" +
-"                                                 decimalSeparator=\",\" \n" +
-"                                                 thousandSeparator=\".\">                                           \n" +
-"                                </una:inputNumber>");
+                        pw.println("<una:inputNumber id=\"" + c.getNombreAtributo() + "InputNumber\"\n"
+                                + "                                                 value=\"#{" + Utilitarios.firstLetterLower(nombreEntidad) + "Bean.entity." + c.getNombreAtributo() + "}\"\n"
+                                + "                                                 required=\"true\"\n"
+                                + "                                                 disabled=\"false\"\n"
+                                + "                                                 symbol=\"#{simboloMonedaBean.simboloLocal}\"\n"
+                                + "                                                 maxValue=\"9223372036854775807\"\n"
+                                + "                                                 minValue=\"-9223372036854775807\"\n"
+                                + "                                                 dir=\"RTL\"\n"
+                                + "                                                 maxlength=\"50\"\n"
+                                + "                                                 decimalSeparator=\",\" \n"
+                                + "                                                 thousandSeparator=\".\">                                           \n"
+                                + "                                </una:inputNumber>");
                         pw.println("<p:message id=\"" + c.getNombreAtributo() + "Message\" for=\"" + c.getNombreAtributo() + "InputNumber\"/>");
-                        
-                        
-                        
-                        break;    
-                    
+
+                        break;
+
                     case "p:autoComplete":
                         pw.println("<p:outputLabel id=\"" + c.getNombreAtributo() + "OutputLabel\" for=\"" + c.getNombreAtributo() + "AutoComplete\"  value=\"#{i18n." + Utilitarios.firstLetterLower(nombreEntidad) + "_" + c.getNombreAtributo() + "_label}\" />");
                         agregarLineaInternacionalizacion(Utilitarios.firstLetterLower(nombreEntidad) + "_" + c.getNombreAtributo() + "_label", c.getEtiqueta());
@@ -1635,15 +1651,10 @@ public class JGene extends javax.swing.JFrame {
                                 + "styleClass=\"una-autocomplete-lov\">"
                                 + "\n"
                                 + "</una:autoCompletePaginator>\n"
-                                + "<p:watermark id=\"" + c.getNombreAtributo() + "AutoCompleteWatermark\"\n"
-                                + "for=\"" + c.getNombreAtributo() + "AutoComplete\"\n"
-                                + "value=\"#{i18n." + Utilitarios.firstLetterLower(nombreEntidad) + "_" + c.getNombreAtributo() + "_select_label}\" />\n"
-                                + "\n"
                                 + "<components:dialogFrameworkData id=\"" + c.getNombreAtributo() + "ListDialog\"\n"
                                 + "lOVBean=\"#{" + Utilitarios.firstLetterLower(c.getNombreAtributo()) + "LOVBean}\"\n"
                                 + "target=\"#{" + Utilitarios.firstLetterLower(nombreEntidad) + "Bean.entity." + c.getNombreAtributo() + "}\"\n"
                                 + "title=\"#{i18n." + Utilitarios.firstLetterLower(nombreEntidad) + "_" + c.getNombreAtributo() + "_LOV_title}\"\n"
-                                + "methodName=\"\"\n"
                                 + "update=\"" + c.getNombreAtributo() + "AutoComplete\" />\n"
                                 + "</p:outputPanel>");
                         agregarLineaInternacionalizacion(Utilitarios.firstLetterLower(nombreEntidad) + "_" + c.getNombreAtributo() + "_select_label", "Seleccione XX " + c.getEtiqueta().toLowerCase());
@@ -1713,6 +1724,13 @@ public class JGene extends javax.swing.JFrame {
         }
     }
 
+    private String generarFechaActual() {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        return format.format(cal.getTime());
+    }
+
     //</editor-fold>
 
     private void btnNuevaConexionnuevaConexion(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevaConexionnuevaConexion
@@ -1746,7 +1764,7 @@ public class JGene extends javax.swing.JFrame {
                     conf.modificarConexion(conexion, jListConexiones.getSelectedIndex());
                 }
 
-                buscaConexiones();                
+                buscaConexiones();
             }
         } catch (ParserConfigurationException ex) {
             Logger.getLogger(JGene.class.getName()).log(Level.SEVERE, null, ex);
@@ -1807,8 +1825,8 @@ public class JGene extends javax.swing.JFrame {
             System.out.println("File access cancelled by user.");
         }
     }
-    
-     public synchronized static String SQLTablas(String tabla) {
+
+    public synchronized static String SQLTablas(String tabla) {
         String sql = "select table_name from DBA_TABLES where table_name='" + tabla + "'";
         return sql;
     }//
@@ -1821,7 +1839,7 @@ public class JGene extends javax.swing.JFrame {
     public synchronized static String SQLPk() {
         String sql = "select uc.table_name, ucc.column_name,tc.data_type from user_cons_columns ucc join user_constraints uc  on ucc.constraint_name=uc.constraint_name join all_tab_columns tc on tc.column_name = ucc.column_name where uc.constraint_type='P' and  uc.TABLE_NAME=?";
         return sql;
-}//
+    }//
     private void btnFChDomainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFChDomainActionPerformed
         seleccionaDirectorio(1);
     }//GEN-LAST:event_btnFChDomainActionPerformed
@@ -1856,7 +1874,7 @@ public class JGene extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         try {
-            if (jListConexiones.getSelectedIndex()==-1) {
+            if (jListConexiones.getSelectedIndex() == -1) {
                 JOptionPane.showMessageDialog(null, "Es necesario seleccionar una conexión");
             } else {
                 txtTabla.setText(txtTabla.getText().toUpperCase());
@@ -1872,12 +1890,13 @@ public class JGene extends javax.swing.JFrame {
         asignaConexion(conexion);
         ConfConexion conf = new ConfConexion();
         try {
-            if (jListConexiones.getSelectedIndex()==-1) {
+            if (jListConexiones.getSelectedIndex() == -1) {
                 JOptionPane.showMessageDialog(null, "Seleccione la conexión que desea eliminar");
-            }else {
+            } else {
                 conf.eliminarConexion(jListConexiones.getSelectedIndex());
                 limpiaConexion();
-                buscaConexiones();            }
+                buscaConexiones();
+            }
         } catch (ParserConfigurationException ex) {
             Logger.getLogger(JGene.class.getName()).log(Level.SEVERE, null, ex);
         } catch (TransformerException ex) {
@@ -1935,12 +1954,12 @@ public class JGene extends javax.swing.JFrame {
         PaqueteDirectorio paqueteDirectorio = new PaqueteDirectorio();
         ConfDirectorio conf = new ConfDirectorio();
         try {
-            if(jListDirectorios.getSelectedIndex()==-1){
+            if (jListDirectorios.getSelectedIndex() == -1) {
                 JOptionPane.showMessageDialog(null, "Seleccione el paquete que desea elimnar!");
-            }else {
+            } else {
                 conf.eliminarPaqueteDirectorio(jListDirectorios.getSelectedIndex());
                 limpiaPaqueteDirectorio();
-                buscaDirectorios();                
+                buscaDirectorios();
             }
         } catch (ParserConfigurationException ex) {
             Logger.getLogger(JGene.class.getName()).log(Level.SEVERE, null, ex);
