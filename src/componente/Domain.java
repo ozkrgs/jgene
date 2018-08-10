@@ -1,10 +1,10 @@
-
 package componente;
 
 import clases.Campo;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import javax.swing.JOptionPane;
 import utils.Utilitarios;
@@ -14,7 +14,8 @@ import utils.Utilitarios;
  * @author sigesa
  */
 public class Domain {
-     public void GenerarEntidad(String nombreEntidad, String directorio, String paquete, String nombreTabla, ArrayList<Campo> listaCampos) {
+
+    public void GenerarEntidad(String nombreEntidad, String directorio, String paquete, String nombreTabla, ArrayList<Campo> listaCampos) {
         FileWriter fichero = null;
         PrintWriter pw = null;
         String ruta = "";
@@ -41,7 +42,7 @@ public class Domain {
             pw.println("@Table(name = \"" + nombreTabla + "\")");
             pw.println("@AttributeOverride(name = \"id\", column =@Column(name = \"ID_" + nombreTabla + "\"))");
             pw.println("@SequenceGenerator(name = \"sequence\", sequenceName = \"SQ_" + nombreTabla + "\", allocationSize = 1)");
-
+            
             pw.println("");
 
             pw.println("public class " + nombreEntidad + " extends BaseEntity<Usuario, CampoConfigurable> {");
