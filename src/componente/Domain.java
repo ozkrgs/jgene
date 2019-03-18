@@ -63,7 +63,7 @@ public class Domain {
                             pw.println("private List<" + c.getTipoAtributo() + "> " + c.getNombreAtributo() + ";");
                             break;
                         case "@ManyToOne":
-                            pw.println("@ManyToOne");
+                            pw.println("@ManyToOne(fetch = FetchType.LAZY)");
                             pw.println("@JoinColumn(name=\"" + c.getNombreCampo().toUpperCase() + "\")");
                             pw.println("private " + c.getTipoAtributo() + " " + c.getNombreAtributo() + ";");
                             break;
