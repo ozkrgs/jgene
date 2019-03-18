@@ -1034,7 +1034,7 @@ public class JGene extends javax.swing.JFrame {
                             pw.println("private List<" + c.getTipoAtributo() + "> " + c.getNombreAtributo() + ";");
                             break;
                         case "@ManyToOne":
-                            pw.println("@ManyToOne");
+                            pw.println("@ManyToOne(fetch = FetchType.LAZY)");
                             pw.println("@JoinColumn(name=\"" + c.getNombreCampo().toUpperCase() + "\")");
                             pw.println("private " + c.getTipoAtributo() + " " + c.getNombreAtributo() + ";");
                             break;
@@ -1098,10 +1098,9 @@ public class JGene extends javax.swing.JFrame {
             pw.println("import " + txtPaquete.getText() + ".domain." + nombreEntidad + ";");
             pw.println("import cr.ac.una.cgi.sdkuna.generic.GenericRepository;");
             pw.println("import org.springframework.stereotype.Repository;");
-            pw.println("import javax.persistence.Table;");
-            
+
             pw.println("/** \n* @author JGene \n* @since " + generarFechaActual() + " \n* @version 0.0.1 \n*/");
-            
+
             pw.println("@Repository");
             pw.println("public interface " + nombreEntidad + "Repository extends GenericRepository<" + nombreEntidad + "> {");
             pw.println("}");
@@ -1132,9 +1131,9 @@ public class JGene extends javax.swing.JFrame {
             pw.println("import  " + txtPaquete.getText() + ".domain." + nombreEntidad + ";");
             pw.println("import cr.ac.una.cgi.sdkuna.api.service.EntityService;");
             pw.println("import java.util.List;");
-            
+
             pw.println("/** \n* @author JGene \n* @since " + generarFechaActual() + " \n* @version 0.0.1 \n*/");
-            
+
             pw.println("public interface " + nombreEntidad + "Service extends EntityService<" + nombreEntidad + "> {");
             pw.println("}");
         } catch (Exception e) {
@@ -1211,7 +1210,7 @@ public class JGene extends javax.swing.JFrame {
             pw.println("import javax.annotation.PostConstruct;");
 
             pw.println("/** \n* @author JGene \n* @since " + generarFechaActual() + " \n* @version 0.0.1 \n*/");
-            
+
             pw.println("@Component");
             pw.println("@Scope(\"session\")");
             pw.println("public class " + nombreEntidad + "Bean extends CRUDImpl<" + nombreEntidad + ", " + nombreEntidad + "Service> implements CRUD{");
@@ -1277,7 +1276,7 @@ public class JGene extends javax.swing.JFrame {
             pw.println("import org.springframework.context.annotation.Scope;");
             pw.println("import org.springframework.stereotype.Component;");
             pw.println("import javax.annotation.PostConstruct;");
-            
+
             pw.println("/** \n* @author JGene \n* @since " + generarFechaActual() + " \n* @version 0.0.1 \n*/");
 
             pw.println("@Component");
@@ -1334,7 +1333,7 @@ public class JGene extends javax.swing.JFrame {
             fichero = new FileWriter(ruta);
             pw = new PrintWriter(fichero);
 
-            pw.println("package " + txtPaquete.getText() + ".view.LOV;");
+            pw.println("package " + txtPaquete.getText() + ".view.lov;");
             pw.println("import " + txtPaquete.getText() + ".domain." + nombreEntidad + ";");
             pw.println("import " + txtPaquete.getText() + ".service." + nombreEntidad + "Service;");
             pw.println("import cr.ac.una.cgi.sdkuna.view.commons.LOV;");
@@ -1347,7 +1346,7 @@ public class JGene extends javax.swing.JFrame {
             pw.println("import javax.annotation.PostConstruct;");
 
             pw.println("/** \n* @author JGene \n* @since " + generarFechaActual() + " \n* @version 0.0.1 \n*/");
-            
+
             pw.println("@Component");
             pw.println("@Scope(\"session\")");
             pw.println("public class " + nombreEntidad + "LOVBean extends LOVImpl<" + nombreEntidad + ", " + nombreEntidad + "Service> implements LOV{");
@@ -1538,10 +1537,13 @@ public class JGene extends javax.swing.JFrame {
                         pw.println("<p:message id=\"" + c.getNombreAtributo() + "Message\" for=\"" + c.getNombreAtributo() + "InputTextArea\"/>");
                         break;
                     case "p:selectBooleanCheckbox":
+                        pw.println("<p:outputPanel/>");
+                        pw.println("<p:panelGrid columns=\"2\" styleClass=\"una-panelgrid\">");
+                        pw.println("<p:selectBooleanCheckbox id=\"" + c.getNombreAtributo() + "SelectBooleanCheckbox\" value=\"#{" + Utilitarios.firstLetterLower(nombreEntidad) + "Bean.entity." + c.getNombreAtributo() + "}\" />");
                         pw.println("<p:outputLabel id=\"" + c.getNombreAtributo() + "OutputLabel\" for=\"" + c.getNombreAtributo() + "SelectBooleanCheckbox\"  value=\"#{i18n." + Utilitarios.firstLetterLower(nombreEntidad) + "_" + c.getNombreAtributo() + "_label}\" />");
                         agregarLineaInternacionalizacion(Utilitarios.firstLetterLower(nombreEntidad) + "_" + c.getNombreAtributo() + "_label", c.getEtiqueta());
-                        pw.println("<p:selectBooleanCheckbox id=\"" + c.getNombreAtributo() + "SelectBooleanCheckbox\" value=\"#{" + Utilitarios.firstLetterLower(nombreEntidad) + "Bean.entity." + c.getNombreAtributo() + "}\" />");
-                        pw.println("<p:message id=\"" + c.getNombreAtributo() + "Message\" for=\"" + c.getNombreAtributo() + "SelectBooleanCheckbox\"/>");
+                        pw.println("</p:panelGrid>");
+                        pw.println("<p:outputPanel/>");
                         pw.println("");
                         break;
                     case "p:calendar":
@@ -1638,7 +1640,7 @@ public class JGene extends javax.swing.JFrame {
                                 + "paginationRows=\"10\"\n"
                                 + "value=\"#{" + Utilitarios.firstLetterLower(nombreEntidad) + "Bean.entity." + c.getNombreAtributo() + "}\"\n"
                                 + "var=\"" + c.getNombreAtributo() + "\"\n"
-                                + "itemLabel=\"#{" + c.getNombreAtributo() + ".DESCRIPCION}\"\n"
+                                + "itemLabel=\"#{" + c.getNombreAtributo() + ".nombre}\"\n"
                                 + "itemValue=\"#{" + c.getNombreAtributo() + "}\"\n"
                                 + "completeMethod=\"#{" + Utilitarios.firstLetterLower(nombreEntidad) + "Bean.complete" + Utilitarios.firstLetterUpper(c.getNombreAtributo()) + "}\"\n"
                                 + "converter=\"#{" + c.getNombreAtributo() + "Bean.converter}\"\n"
