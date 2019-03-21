@@ -1206,6 +1206,8 @@ public class JGene extends javax.swing.JFrame {
             pw.println("import java.util.List;");
             pw.println("import java.util.ArrayList;");
             pw.println("import org.springframework.context.annotation.Scope;");
+            pw.println("import org.springframework.data.domain.Page;");
+            pw.println("import org.springframework.data.domain.Pageable;");
             pw.println("import org.springframework.stereotype.Component;");
             pw.println("import javax.annotation.PostConstruct;");
 
@@ -1237,8 +1239,8 @@ public class JGene extends javax.swing.JFrame {
                 pw.println("this.setTableColumns(columns);");
             }
             pw.println("}");
-            pw.println("public List<" + nombreEntidad + "> completo" + nombreEntidad + "(String query,String campo){");
-            pw.println(" return service.findAutoComplete(query, campo);");
+            pw.println("public Page<" + nombreEntidad + "> completo" + nombreEntidad + "(String query,String campo, Pageable pageable){");
+            pw.println(" return service.findAutoComplete(query, campo, pageable);");
             pw.println("}");
             pw.println("}");
         } catch (Exception e) {
@@ -1707,7 +1709,7 @@ public class JGene extends javax.swing.JFrame {
         PrintWriter pw = null;
         String ruta = "";
         try {
-            ruta = txtDirScript.getText() + nombreEntidad + "_i18n.txt";
+            ruta = txtDirScript.getText() + nombreEntidad + "_i18n.sql";
             fichero = new FileWriter(ruta);
             pw = new PrintWriter(fichero);
             pw.println(i18n);
