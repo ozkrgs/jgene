@@ -1240,7 +1240,7 @@ public class JGene extends javax.swing.JFrame {
             }
             pw.println("}");
             pw.println("public Page<" + nombreEntidad + "> completo" + nombreEntidad + "(String query,String campo, Pageable pageable){");
-            pw.println(" return service.findAutoComplete(query, campo, pageable);");
+            pw.println(" return service.findAutocompleteByQuery(query, campo, pageable);");
             pw.println("}");
             pw.println("}");
         } catch (Exception e) {
